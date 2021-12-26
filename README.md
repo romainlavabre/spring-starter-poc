@@ -503,6 +503,10 @@ All mock provided is cleared between tests.
 
 ### Versions
 
+##### 1.0.1
+
+- ADD Test dependency
+
 ##### 1.0.0
 
 INITIAL
