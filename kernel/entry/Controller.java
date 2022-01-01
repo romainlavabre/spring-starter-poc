@@ -2,6 +2,7 @@ package com.replace.replace.api.poc.kernel.entry;
 
 import com.replace.replace.api.json.Encoder;
 import com.replace.replace.api.poc.annotation.*;
+import com.replace.replace.api.poc.annotation.Delete;
 import com.replace.replace.api.poc.kernel.entity.EntityHandler;
 import com.replace.replace.api.poc.kernel.exception.NoRouteMatchException;
 import com.replace.replace.api.poc.kernel.router.RouteHandler;
@@ -185,7 +186,7 @@ public class Controller {
     @Transactional
     public ResponseEntity< Void > delete( @PathVariable( "id" ) final long id )
             throws Throwable {
-        final RouteHandler.Route route = this.routeHandler.getRoute( this.request, GetOne.class );
+        final RouteHandler.Route route = this.routeHandler.getRoute( this.request, Delete.class );
 
         final DefaultRepository< ? > defaultRepository = this.applicationContext.getBean( route.getRepository() );
 
