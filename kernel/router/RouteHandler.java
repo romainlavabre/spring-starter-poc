@@ -4,7 +4,6 @@ import com.replace.replace.api.poc.annotation.*;
 import com.replace.replace.api.poc.kernel.entity.EntityHandler;
 import com.replace.replace.api.poc.kernel.exception.*;
 import com.replace.replace.api.poc.kernel.setter.SetterHandler;
-import com.replace.replace.api.poc.kernel.util.Formatter;
 import com.replace.replace.api.request.Request;
 import com.replace.replace.configuration.security.Role;
 import com.replace.replace.repository.DefaultRepository;
@@ -40,7 +39,7 @@ public class RouteHandler {
 
     public List< Route > toRoute( Class< ? > subject, Field field ) throws SetterNotFoundException, ToManySetterParameterException, MultipleSetterFoundException, InvalidSetterParameterType, NoSuchFieldException, NoSuchMethodException {
 
-        String id = com.replace.replace.api.poc.kernel.util.Formatter.toSnakeCase( subject.getSimpleName() ) + entityHandler.getEntity( field.getDeclaringClass() ).getSuffixPlural() + "::" + field.getName();
+        String id = entityHandler.getEntity( field.getDeclaringClass() ).getPlural() + "::" + field.getName();
 
         if ( storage.containsKey( id ) ) {
             return storage.get( id );
@@ -477,7 +476,7 @@ public class RouteHandler {
 
 
         private String getPluralEntity( Class< ? > subject ) {
-            return Formatter.toSnakeCase( subject.getSimpleName() + entityHandler.getEntity( subject ).getSuffixPlural() );
+            return entityHandler.getEntity( subject ).getPlural();
         }
     }
 }

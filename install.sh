@@ -84,6 +84,8 @@ if [ -f "$DIRECTORY/Subject.java" ]; then
 
     if [ "$OVERWRITE" == "Y" ] || [ "$OVERWRITE" == "y" ]; then
         mv "$1/Subject.java" "$DIRECTORY/Subject.java"
+    else
+        rm "$1/Subject.java"
     fi
 
 else
@@ -95,6 +97,8 @@ if [ -f "$DIRECTORY/TriggerIdentifier.java" ]; then
 
     if [ "$OVERWRITE" == "Y" ] || [ "$OVERWRITE" == "y" ]; then
         mv "$1/TriggerIdentifier.java" "$DIRECTORY/TriggerIdentifier.java"
+    else
+        rm "$1/TriggerIdentifier.java"
     fi
 
 else

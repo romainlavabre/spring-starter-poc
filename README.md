@@ -2,7 +2,6 @@
 
 This framework aims to save you time in your work. Please consider the warning below.
 
-
 Warning, this framework is intended for proof of concept and will not give your software a beautiful architecture.
 Thus, when your project will be stabilized, it will eventually be necessary to consider a rewrite.
 
@@ -31,7 +30,7 @@ class Person {
 You must specify her repository and you can specify the prefix of entity (to plural) for routing
 
 ```java
-@PocEnabled( repository = PersonRepository.class, suffixPlural = "persons" )
+@PocEnabled( repository = PersonRepository.class, plural = "persons" )
 ```
 
 By default, POC add an "s", but with few words, it can be a problem (address).
@@ -50,19 +49,18 @@ By default, the json payload will be parsed with this convention :
 
 In snackcase format.
 
-So  
+So
 
 ```json
 {
     "person": {
         "name": "Paul",
         "weight": 80.0
-    }   
+    }
 }
 ```
 
 Will be produce
-
 
 ```textmate
 person_name=Paul
@@ -75,7 +73,7 @@ If this convention does not suit you, you can explicitly fill like that :
 import com.project.project.api.poc.annotation.RequestParameter;
 
 class Person {
-    
+
     @RequestParameter( name = "personName" )
     private String name;
 
@@ -84,7 +82,6 @@ class Person {
 }
 ``` 
 
-
 ### Setters
 
 Obviously, POC will call your setters for you, but he has conventions :
@@ -92,7 +89,8 @@ Obviously, POC will call your setters for you, but he has conventions :
 - camelCase
 - If is array, you must specify a setter that take once value (addField(String value))
 
-Warning, in array or collection (array of values or array of relation) case, it will never clear, you can only add value, that all.
+Warning, in array or collection (array of values or array of relation) case, it will never clear, you can only add
+value, that all.
 
 If POC cannot resolve your setter, you can use
 
@@ -128,8 +126,8 @@ import com.project.project.api.poc.annotation.GetAll;
 @Entity
 class Person {
     @EntryPoint(
-                getOne = @GetOne( enabled = true ),
-                getAll = @GetAll( enabled = true)
+            getOne = @GetOne( enabled = true ),
+            getAll = @GetAll( enabled = true )
     )
     private long id;
 }
@@ -145,11 +143,9 @@ GET {{url}}/{{role}}/persons
 The response payload will be build with entity that return by the repository and encoded with the endpoint role.
 For sample, if role is ROLE_ADMIN, the entity with encoded with group ADMIN.
 
-
 ##### More
 
-In few cases, you want return entity by owner relation, you can specify 
-
+In few cases, you want return entity by owner relation, you can specify
 
 ```java
 import com.project.project.api.poc.annotation.PocEnabled;
@@ -160,8 +156,8 @@ import com.project.project.api.poc.annotation.GetAllBy;
 @Entity
 class Person {
     @EntryPoint(
-                getOneBy = {@GetOneBy( entity = Friend.class ), @GetOneBy( entity = Car.class )},
-                getAllBy = {@GetAllBy( entity = Other.class)}
+            getOneBy = {@GetOneBy( entity = Friend.class ), @GetOneBy( entity = Car.class )},
+            getAllBy = {@GetAllBy( entity = Other.class )}
     )
     private long id;
 }
@@ -172,16 +168,16 @@ And in your repository, POC will search this method
 She should throw a 404 Exception if not found
 
 ```java
-Person findOrFailByFriend( Friend friend );
+Person findOrFailByFriend(Friend friend);
 ```
 
 And for @GetAllBy
 
 ```java
-List< Friend > findByPerson( Person person );
+List< Friend > findByPerson(Person person);
 ```
 
-If your method has another name, you must specify it 
+If your method has another name, you must specify it
 
 ```java
 import com.project.project.api.poc.annotation.PocEnabled;
@@ -192,8 +188,8 @@ import com.project.project.api.poc.annotation.GetAllBy;
 @Entity
 class Person {
     @EntryPoint(
-                getOneBy = {@GetOneBy( entity = Friend.class, method = "anotherName" )},
-                getAllBy = {@GetAllBy( entity = Other.class, method = "anotherName" )}
+            getOneBy = {@GetOneBy( entity = Friend.class, method = "anotherName" )},
+            getAllBy = {@GetAllBy( entity = Other.class, method = "anotherName" )}
     )
     private long id;
 }
@@ -223,7 +219,7 @@ class Person {
 }
 ```
 
-- You can specify more than one @Post entry point 
+- You can specify more than one @Post entry point
 - You must explicitly fill fields to set
 
 It will generate
@@ -276,7 +272,6 @@ DELETE {{url}}/{{role}}/persons/{id:[0-9]+}
 
 You must placed @Patch annotation in target field.
 
-
 ```java
 import com.project.project.api.poc.annotation.PocEnabled;
 import com.project.project.api.poc.annotation.Delete;
@@ -301,15 +296,16 @@ PATCH {{url}}/{{role}}/persons/{id:[0-9]+}/name
 
 ### Authentication & Authorization
 
-By default, all HTTP endpoint are generate for all available role (see in Role.class), and all endpoint will be authenticated.
+By default, all HTTP endpoint are generate for all available role (see in Role.class), and all endpoint will be
+authenticated.
 
 If you want released endpoint, you must set this property :
 
 ```java
-authenticated = false
+authenticated=false
 ```
 
-It will generate 
+It will generate
 
 ```textmate
 {{HTTP}} {{url}}/guest/persons.*
@@ -318,11 +314,10 @@ It will generate
 If you want select specific roles, you must set this property :
 
 ```java
-roles = {"ROLE_1","ROLE_2"}
+roles={"ROLE_1","ROLE_2"}
 ```
 
 It will generate endpoints only for these roles
-
 
 ### Custom constraints
 
@@ -370,13 +365,12 @@ Your constraint is always call <strong>before set</strong>.
     </tr>
 </table>
 
-
 - All HTTP annotation contains a "route" field.
 
 If you fill this field, you must start after plural entity. So :
 
 ```java
-route = "/my/custom/route/{id:[0-9]+}"
+route="/my/custom/route/{id:[0-9]+}"
 ```
 
 produce :
@@ -431,7 +425,6 @@ public class Friend {
 }
 ```
 
-
 #### DeleteTrigger
 
 Delete trigger act like @Delete entrypoint.
@@ -446,7 +439,7 @@ public class Friend {
 
     @EntryPoint(
             deleteTriggers = {
-                    @DeleteTrigger( id = TriggerIdentifier.DELETE_FRIEND)
+                    @DeleteTrigger( id = TriggerIdentifier.DELETE_FRIEND )
             }
     )
     private long id;
@@ -459,18 +452,19 @@ In all HTTP entry point, you can specify a trigger to call.
 
 ```java
 @Post(
-    fields = {"name", "phone", "age"},
-    triggers = {
-        @Trigger( triggerId = TriggerIdentifier.ATTACH_FRIEND_TO_PERSON, attachToField = "friends" ),
-        @Trigger( triggerId = TriggerIdentifier.ATTACH_CAR_TO_PERSON, attachToField = "car" ),
-        @Trigger( triggerId = TriggerIdentifier.PERSON_CATEGORY, provideMe = true )
-    }
+        fields = {"name", "phone", "age"},
+        triggers = {
+                @Trigger( triggerId = TriggerIdentifier.ATTACH_FRIEND_TO_PERSON, attachToField = "friends" ),
+                @Trigger( triggerId = TriggerIdentifier.ATTACH_CAR_TO_PERSON, attachToField = "car" ),
+                @Trigger( triggerId = TriggerIdentifier.PERSON_CATEGORY, provideMe = true )
+        }
 )
 ```
 
 ##### On relation creation
 
-You can fill the "attachToField" field. When your entity you be created, she will be attached to specify a field (by the setter).
+You can fill the "attachToField" field. When your entity you be created, she will be attached to specify a field (by the
+setter).
 
 ##### On Update or Delete trigger
 
@@ -485,14 +479,12 @@ You must specify a target entity, for that, you can :
 - All trigger can have a custom executor
 - All trigger can call other trigger
 
-
 ### Integration tests
 
 ##### Mock
 
-The context start in a singleton, so, for configure mock, you must request of POC to provide you the target mock. 
+The context start in a singleton, so, for configure mock, you must request of POC to provide you the target mock.
 All mock provided is cleared between tests.
-
 
 ### Requirements
 

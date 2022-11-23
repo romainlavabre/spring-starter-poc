@@ -16,5 +16,5 @@ public @interface PocEnabled {
     Class< ? extends DefaultRepository< ? > > repository();
 
 
-    String suffixPlural() default "s";
+    String plural() default "auto-generated";
 }

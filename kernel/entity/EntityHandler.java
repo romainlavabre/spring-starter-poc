@@ -1,6 +1,7 @@
 package com.replace.replace.api.poc.kernel.entity;
 
 import com.replace.replace.api.poc.annotation.PocEnabled;
+import com.replace.replace.api.poc.kernel.util.Formatter;
 import com.replace.replace.configuration.poc.Subject;
 import com.replace.replace.repository.DefaultRepository;
 import org.springframework.context.ApplicationContext;
@@ -52,7 +53,7 @@ public class EntityHandler {
 
 
     public static class Entity {
-        private final String suffixPlural;
+        private final String plural;
 
         private final Class< ? extends DefaultRepository< ? > > repository;
 
@@ -65,15 +66,20 @@ public class EntityHandler {
 
         public Entity( final Class< ? > subject, final DefaultRepository< ? extends DefaultRepository< ? > > defaultRepository ) {
             this.pocEnabled        = subject.getAnnotation( PocEnabled.class );
-            this.suffixPlural      = this.pocEnabled.suffixPlural();
             this.repository        = this.pocEnabled.repository();
             this.defaultRepository = defaultRepository;
             this.subject           = subject;
+
+            if ( pocEnabled.plural() == "auto-generated" ) {
+                plural = Formatter.toSnakeCase( subject.getSimpleName() + "s" );
+            } else {
+                plural = pocEnabled.plural();
+            }
         }
 
 
-        public String getSuffixPlural() {
-            return this.suffixPlural;
+        public String getPlural() {
+            return plural;
         }
 
 
