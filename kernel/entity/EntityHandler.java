@@ -70,7 +70,7 @@ public class EntityHandler {
             this.defaultRepository = defaultRepository;
             this.subject           = subject;
 
-            if ( pocEnabled.plural() == "auto-generated" ) {
+            if ( pocEnabled.plural().equals( "auto-generated" ) ) {
                 plural = Formatter.toSnakeCase( subject.getSimpleName() + "s" );
             } else {
                 plural = pocEnabled.plural();
