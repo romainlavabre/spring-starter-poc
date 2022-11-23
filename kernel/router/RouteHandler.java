@@ -216,8 +216,20 @@ public class RouteHandler {
             if ( annotation instanceof Post ) {
                 setters = new ArrayList<>();
 
-                for ( String localField : (( Post ) annotation).fields() ) {
-                    setters.add( setterHandler.toSetter( subject.getDeclaredField( localField ) ) );
+                String[] fields = (( Post ) annotation).fields();
+
+                if ( fields.length == 1 && fields[ 0 ].contains( "*" ) ) {
+                    for ( Field subjectField : subject.getDeclaredFields() ) {
+                        if ( subjectField.getName() == "id" ) {
+                            continue;
+                        }
+
+                        setters.add( setterHandler.toSetter( subjectField ) );
+                    }
+                } else {
+                    for ( String localField : fields ) {
+                        setters.add( setterHandler.toSetter( subject.getDeclaredField( localField ) ) );
+                    }
                 }
 
                 triggers.addAll( Arrays.asList( (( Post ) annotation).triggers() ) );
