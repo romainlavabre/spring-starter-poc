@@ -5,6 +5,7 @@ import com.replace.replace.api.poc.kernel.entity.EntityHandler;
 import com.replace.replace.api.poc.kernel.entry.Controller;
 import com.replace.replace.api.poc.kernel.exception.*;
 import com.replace.replace.api.poc.kernel.trigger.TriggerHandler;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import javax.annotation.PostConstruct;
 import java.lang.reflect.Field;
 import java.util.Map;
 
