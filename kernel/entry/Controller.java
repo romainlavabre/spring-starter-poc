@@ -1,8 +1,8 @@
 package com.replace.replace.api.poc.kernel.entry;
 
 import com.replace.replace.api.json.Encoder;
-import com.replace.replace.api.poc.annotation.*;
 import com.replace.replace.api.poc.annotation.Delete;
+import com.replace.replace.api.poc.annotation.*;
 import com.replace.replace.api.poc.kernel.entity.EntityHandler;
 import com.replace.replace.api.poc.kernel.exception.NoRouteMatchException;
 import com.replace.replace.api.poc.kernel.router.RouteHandler;
@@ -10,6 +10,7 @@ import com.replace.replace.api.request.Request;
 import com.replace.replace.api.storage.data.DataStorageHandler;
 import com.replace.replace.configuration.json.GroupType;
 import com.replace.replace.repository.DefaultRepository;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -18,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.transaction.Transactional;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;

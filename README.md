@@ -496,6 +496,10 @@ All mock provided is cleared between tests.
 
 ### Versions
 
+##### 2.0.1
+
+Migrate to jakarta
+
 ##### 2.0.0
 
 Migrate to spring-boot:3.0.0
